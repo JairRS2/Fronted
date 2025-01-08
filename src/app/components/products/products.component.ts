@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -99,12 +99,22 @@ export class ProductsComponent implements OnInit {
       panelClass: 'custom-dialog-container', // Clase opcional para estilizar el modal
     });
   }
+// Detectar clics fuera de la fila para cerrar los detalles
+@HostListener('document:click', ['$event'])
+onDocumentClick(event: MouseEvent) {
+  const clickedElement = event.target as HTMLElement;
 
+  // Verifica si el clic fue fuera de cualquier fila de producto
+  if (!clickedElement.closest('tr')) {
+    // Cierra todos los detalles de los productos
+    this.products.forEach(product => product.showDetails = false);
+  }
+}
   // Verificar si product.imageUrls es un array
   isImageArray(product: any): boolean {
     return Array.isArray(product.imageUrls);
   }
-
+ 
   // Función para manejar el error de carga de imágenes
   onImageError(event: Event): void {
     const target = event.target as HTMLImageElement;
@@ -300,10 +310,22 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  //metodd para expandir el  detalles prod 
-  toggleProductDetails(product: any): void {
-    product.showDetails = !product.showDetails; // Expande o colapsa detalles del producto
+  toggleProductDetails(product: any, event: MouseEvent) {
+    // Evitar que el clic en la fila del producto cierre el detalle
+    event.stopPropagation();
+  
+    // Cerrar los detalles de todos los productos
+    this.products.forEach(p => {
+      if (p !== product) {
+        p.showDetails = false;
+      }
+    });
+  
+    // Alterna la visibilidad solo del producto seleccionado
+    product.showDetails = !product.showDetails;
   }
+  
+
 
   //Metodo para hacer el submit 
   onSubmit() {

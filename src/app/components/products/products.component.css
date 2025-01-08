@@ -219,9 +219,10 @@
 }
 
 /* Ajuste en la disposición para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 576px) {
   .form-grid {
-    grid-template-columns: 1fr;
+       display: flex;
+    flex-direction: column;
   }
 
   .form-container {
@@ -324,7 +325,7 @@
   /* Fija la columna de acciones cuando se hace scroll */
   right: 0;
   /* Fija la columna a la derecha */
-  background-color: white;
+ 
   /* Fondo blanco para la columna */
   /* Asegura que esté encima del contenido */
 }
@@ -612,10 +613,10 @@ button:disabled {
 
 
 .highlighted {
-  background-color: #f0f8ff;
-  /* Cambia el color según lo que prefieras */
-  border-left: 8px solid #007bff;
+  background-color: #8cc9ff; /* Fondo azul claro */
+  border-bottom: 4px solid #007bff; /* Subrayado azul claro */
 }
+
 
 
 

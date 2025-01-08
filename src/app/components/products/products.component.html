@@ -285,7 +285,7 @@
               <!-- Mostrar productos filtrados y paginados -->
               <ng-container *ngFor="let product of filteredProducts(); let i = index">
                 <tr [class.highlighted]="product.showDetails" [class.desabilitado]="!product.nEdoPrd"
-                  (click)="toggleProductDetails(product)">
+                  (click)="toggleProductDetails(product, $event)">
                   <td class="codigo-column">{{ product.cCodPrd }}</td>
                   <td>{{ product.cDesPrd }}</td>
                   <td>{{ getUnits(product.nUniPrd) }}</td>
@@ -297,21 +297,19 @@
                   <td>{{ product.dAltPrd | date:'dd-MM-yyyy' }}</td>
                   <td>
                     <div class="action-buttons">
-                      <button class="btn-edit" (click)="editProduct(product); $event.stopPropagation()"
-                        [disabled]="!product.nEdoPrd">
+                      <button class="btn-edit" (click)="editProduct(product); $event.stopPropagation()" [disabled]="!product.nEdoPrd">
                         Editar
                       </button>
-                      <button class="btn-enable" *ngIf="!product.nEdoPrd"
-                        (click)="habilitarProducto(product.cCodPrd); $event.stopPropagation()">
+                      <button class="btn-enable" *ngIf="!product.nEdoPrd" (click)="habilitarProducto(product.cCodPrd); $event.stopPropagation()">
                         Habilitar
                       </button>
-                      <button class="btn-disable" *ngIf="product.nEdoPrd"
-                        (click)="deshabilitarProducto(product.cCodPrd); $event.stopPropagation()">
+                      <button class="btn-disable" *ngIf="product.nEdoPrd" (click)="deshabilitarProducto(product.cCodPrd); $event.stopPropagation()">
                         Deshabilitar
                       </button>
                     </div>
                   </td>
                 </tr>
+              
                 <!-- Fila expandida con detalles del producto -->
                 <tr *ngIf="product.showDetails">
                   <td colspan="10">
@@ -320,8 +318,7 @@
                         <div class="d-flex flex-wrap">
                           <!-- Imagen con evento de clic -->
                           <div *ngFor="let imageUrl of product.imageUrls" class="me-3">
-                            <img [src]="imageUrl" class="img-fluid normal-image" (click)="openImageModal(imageUrl)"
-                              (error)="onImageError($event)" />
+                            <img [src]="imageUrl" class="img-fluid normal-image" (click)="openImageModal(imageUrl)" (error)="onImageError($event) " />
                           </div>
                         </div>
                       </div>
@@ -339,6 +336,8 @@
                   </td>
                 </tr>
               </ng-container>
+              
+              
               <!-- Fila vacía cuando no hay productos -->
               <tr *ngIf="filteredProducts().length === 0">
                 <td colspan="3">No hay productos para mostrar.</td>
