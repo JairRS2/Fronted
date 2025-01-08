@@ -1,0 +1,99 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #E9F1F7;
+  /* Fondo suave */
+  margin: 0;
+  padding: 0;
+}
+
+.login-container {
+  display: flex;
+  width: 900px;
+  height: 500px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  /* Sombra más definida */
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  /* Fondo limpio */
+}
+
+.left-section {
+  flex-basis: 40%;
+  background: url('/assets/descarga.png') no-repeat center center;
+
+  background-color: #FDFDFD;
+  /* Blanco puro */
+}
+
+/* Sección derecha */
+.right-section {
+  flex: 1;
+  background-color: #1E3A8A;
+  /* Azul oscuro */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #DCE7F8;
+  /* Color tenue para etiquetas */
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #DCE7F8;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-actions button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3B82F6;
+  /* Azul vibrante */
+  color: #FFFFFF;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-actions button:hover {
+  background-color: #2563EB;
+  /* Azul más oscuro */
+}
+
+.form-actions a {
+  color: #60A5FA;
+  text-decoration: none;
+}
+
+.form-actions a:hover {
+  text-decoration: underline;
+}

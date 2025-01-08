@@ -1,0 +1,51 @@
+.dialog-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #4a4a4a;
+}
+
+.dialog-content {
+  font-size: 1.2rem;
+  color: #0e0d0d;
+  text-align: center;
+
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 15px 0;
+
+  .cancel-button {
+    background-color: lightgoldenrodyellow;
+    justify-content: space-between;
+    color: goldenrod;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: lightgoldenrodyellow;
+    }
+  }
+
+  .confirm-button {
+    background-color: lightpink;
+    /* Rojo elegante */
+    color: darkred;
+    justify-content: space-between;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+
+
+    &:hover {
+      background-color: lightpink;
+    }
+  }
+}

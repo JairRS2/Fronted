@@ -1,0 +1,474 @@
+/* Estilo para el sidebar */
+.sidebar {
+  background-color: #343a40; /* Color oscuro */
+  color: #ffffff; /* Texto blanco */
+  padding: 20px; /* Agregamos un poco de espaciado para mayor separación */
+  height: 100vh; /* Hace que el sidebar ocupe toda la altura de la pantalla */
+  display: flex;
+  flex-direction: column; /* Para que los elementos se apilen verticalmente */
+  justify-content: flex-start; /* Alinea el contenido al inicio */
+}
+
+/* Estilo para los enlaces del sidebar */
+.sidebar a {
+  text-decoration: none;
+  font-size: 1.1rem; /* Tamaño de fuente ligeramente mayor */
+  padding: 10px 15px;
+  border-radius: 5px;
+  display: block;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transición de color y escala */
+  margin-bottom: 10px; /* Espacio entre los enlaces */
+}
+
+/* Efecto de hover en los enlaces */
+.sidebar a:hover {
+  background-color: #6caef0; /* Color de fondo cuando el mouse pasa sobre el enlace */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  cursor: pointer; /* Cambia el cursor a mano para indicar interactividad */
+}
+
+/* Efecto de presionar el enlace (active) */
+.sidebar a:active {
+  transform: scale(0.98); /* Efecto de presionar el enlace */
+}
+
+/* Estilo para la imagen del sidebar */
+.sidebar img {
+  width: 100px;          /* Tamaño de la imagen */
+  height: 100px;         /* Asegura que sea cuadrada */
+  object-fit: cover;     /* Recorta la imagen adecuadamente */
+  border-radius: 50%;    /* Forma circular */
+  object-position: center; /* Asegura que la imagen esté centrada dentro del círculo */
+  margin-bottom: 20px;   /* Espacio debajo de la imagen */
+}
+
+/* Estilo para el título en el sidebar */
+.sidebar h4 {
+  font-size: 1.3rem;  /* Tamaño de la fuente */
+  font-weight: bold;  /* Negrita */
+  text-align: center; /* Alinea el texto al centro */
+  margin-bottom: 20px; /* Espacio debajo del título */
+}
+.logout-button {
+  color: white; /* Color del texto */
+  text-decoration: none; /* Quitar subrayado */
+  transition: color 0.3s ease, background-color 0.3s ease; /* Transición suave */
+  border: none; /* Sin bordes */
+  background: none; /* Fondo transparente */
+  cursor: pointer; /* Cambia el cursor a "pointer" */
+}
+
+.logout-button:hover {
+  background-color: #b11111; /* Color de fondo cuando el mouse pasa sobre el enlace */
+  transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+  cursor: pointer; 
+}
+
+
+
+/* Contenido */
+.content {
+  margin-left: 250px;
+  padding: 2rem;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.product-management {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Estilo para el contenedor del formulario */
+.form-container {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Grid para los campos del formulario */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.8rem;
+  margin-bottom: 15px;
+}
+
+/* Etiquetas */
+.form-container label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.4rem;
+}
+
+/* Estilo para los inputs */
+.form-container input {
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  width: 100%;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Estilo cuando el input ha sido tocado y está vacío */
+.form-container input.touched:invalid {
+  border-color: #e74c3c; /* Rojo cuando el input no es válido */
+  background-color: #f8d7da; /* Fondo suave de error */
+}
+
+/* Efecto al enfocar los inputs */
+.form-container input:focus {
+  border-color: #007bff;
+  background-color: #ffffff;
+  outline: none;
+}
+
+/* Estilo para el botón de "Guardar/Actualizar" */
+.form-container button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, transform 0.2s ease;
+  margin-top: 15px;
+  align-self: flex-start;
+  width: auto;
+}
+
+/* Efecto hover para el botón "Guardar/Actualizar" */
+.form-container button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.form-container button:focus {
+  outline: none;
+}
+
+/* Estilo para el botón "Volver" */
+.btn-volver {
+  background-color: #e74c3c; 
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.2s ease;
+  width: auto;
+  position: absolute;
+  top: 20px;
+  left: 60%;
+  transform: translateX(-50%);
+}
+
+/* Efecto hover para el botón "Volver" */
+.btn-volver:hover {
+  background-color: #c0392b;
+  transform: scale(1.05) translateX(-50%);
+}
+
+/* Ajuste en la disposición para pantallas pequeñas */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-container {
+    padding: 1rem;
+  }
+
+  .form-container button {
+    width: 100%;
+  }
+}
+
+
+/* Tabla */
+.table {
+  width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+  border-collapse: collapse;
+  margin-bottom: 20px; /* Espacio debajo de la tabla */
+  height: auto; /* Permite que la tabla crezca automáticamente */
+  overflow: visible; /* Evita que el contenido se oculte */
+}
+
+/* Filas de la tabla */
+.table tr {
+  display: table-row; /* Asegura que las filas sean visibles */
+  height: auto; /* Ajusta la altura automáticamente */
+}
+
+/* Celdas de la tabla */
+.table th,
+.table td {
+  padding: 0.5rem; /* Espaciado interno */
+  font-size: 0.45rem; /* Tamaño de fuente ajustado */
+}
+
+/* Encabezados de la tabla */
+.table th {
+  font-size: 0.9rem; /* Tamaño ligeramente mayor para los encabezados */
+  background-color: #f1f3f5; /* Fondo claro */
+  padding: 0.5rem; /* Espaciado interno */
+}
+
+/* Contenedor de la tabla */
+.table-container {
+  height: auto; /* Permite que el contenedor crezca según el contenido */
+  max-height: none; /* Elimina restricciones de altura máxima */
+  overflow: visible; /* Evita el ocultamiento del contenido */
+}
+
+/* Estilo para las filas de la tabla */
+.table th,
+.table td {
+  padding: 0.4rem; /* Reducimos el padding */
+  font-size: 0.85rem; /* Reducimos el tamaño de la fuente */
+}
+
+/* Estilo para los encabezados */
+.table th {
+  font-size: 0.9rem; /* Tamaño de fuente ligeramente mayor para los encabezados */
+  background-color: #f1f3f5;
+  padding: 0.5rem; /* Padding de los encabezados */
+}
+
+
+/* Centrar el encabezado de "Acciones" */
+.actions-header {
+  text-align: center;  /* Centra el texto del encabezado */
+  position: sticky;    /* Fija el encabezado al hacer scroll */
+  top: 0;              /* Asegura que esté en la parte superior */
+ /* Fondo oscuro para el encabezado, similar al sidebar */
+     /* Color blanco para el texto */
+  z-index: 2;          /* Asegura que el encabezado esté encima de las filas */
+  width: 120px;        /* Establece un ancho fijo para la columna */
+}
+
+/* Estilo de la columna de "Acciones" */
+.table td.actions-column {
+  text-align: center;  /* Centra el contenido de la columna */
+}
+
+/* Fijar la columna de acciones en el contenido */
+.table tbody td:last-child {
+  position: sticky;   /* Fija la columna de acciones cuando se hace scroll */
+  right: 0;           /* Fija la columna a la derecha */
+  background-color: white;  /* Fondo blanco para la columna */
+  z-index: 1;         /* Asegura que esté encima del contenido */
+}
+
+/* Mejorar la apariencia de los botones */
+.table .actions-column button {
+  margin: 0 5px;  /* Espaciado entre los botones */
+}
+
+/* Botones de acción */
+.btn-edit,
+.btn-delete {
+  color: #fff; /* Color del texto */
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Botón Editar */
+.btn-edit {
+  background-color: #007bff; /* Azul más sólido */
+}
+
+.btn-edit:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+  transform: scale(1.03); /* Ligero aumento al pasar el mouse */
+}
+
+/* Botón Eliminar */
+.btn-delete {
+  background-color: #e74c3c; /* Rojo sólido */
+}
+
+.btn-delete:hover {
+  background-color: #c0392b; /* Rojo más oscuro al pasar el mouse */
+  transform: scale(1.03); /* Ligero aumento al pasar el mouse */
+}
+
+/* Alinear los botones en una fila */
+.action-buttons {
+  display: flex;
+  justify-content: center; /* Centrar los botones dentro de la celda */
+  gap: 10px; /* Espacio entre los botones */
+}
+.action-buttons2 {
+  display: flex;
+  justify-content: flex-end; /* Mantén los botones alineados a la derecha */
+  gap: 10px; /* Espacio entre botones */
+}
+
+.action-buttons2 button {
+  background-color: #4a5568; /* Gris oscuro */
+  color: #ffffff; /* Texto blanco */
+  border: none;
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 5px 10px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; /* Transiciones suaves */
+}
+
+.action-buttons2 button:hover {
+  transform: scale(1.05); /* Ampliación ligera en hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombras más marcadas */
+  background-color: #2d3748; /* Gris más oscuro al pasar el cursor */
+}
+
+.action-buttons2 button:active {
+  transform: scale(1); /* Sin escalado al hacer clic */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
+/* Paginación */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  margin: 0 5px;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.pagination button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.pagination button:disabled {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 1.1rem;
+  margin: 0 10px;
+}
+
+/* Paginación numérica */
+.pagination ul {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 5px;
+}
+
+.pagination ul li {
+  margin: 0;
+}
+
+.pagination ul li button {
+  background-color: #f8f9fa;
+  color: #007bff;
+  border: 1px solid #ced4da;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.pagination ul li button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.pagination ul li.active button {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Asegura que las secciones tengan el tamaño adecuado y estén ocultas por defecto */
+.section {
+  display: none; /* Inicialmente ocultamos todas las secciones */
+}
+
+.section.active {
+  display: block; /* Solo mostramos la sección activa */
+}
+
+/* Contenedor del botón */
+.btn-container {
+  display: flex;
+  justify-content: flex-end; /* Alinea el botón a la derecha */
+  margin-bottom: 15px; /* Espacio entre el botón y la tabla */
+  position: relative; /* Permite la posición absoluta del botón */
+  margin-top: 10px; /* Añadir un poco de espacio en la parte superior */
+}
+
+/* Botón de Agregar Producto */
+.btn-add-product {
+  background-color: #3498db; /* Azul claro */
+  color: white;
+  border: none;
+  padding: 0.3rem 0.8rem; /* Hacemos el botón aún más pequeño */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem; /* Reducimos el tamaño de la fuente */
+  transition: background-color 0.3s, transform 0.2s ease;
+}
+
+.btn-add-product:hover {
+  background-color: #2980b9; /* Azul más oscuro al pasar el mouse */
+  transform: scale(1.05); /* Efecto de agrandar ligeramente */
+}
+
+.btn-add-product:focus {
+  outline: none; /* Elimina el contorno cuando se da clic */
+}
+
+/* Asegura que el botón esté en la esquina superior derecha */
+.btn-container button {
+  position: absolute;
+  top: 0; /* Coloca el botón en la parte superior */
+  right: 0; /* Colócalo en la esquina derecha */
+  margin: 10px; /* Un pequeño margen alrededor del botón */
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-2 sidebar bg-dark text-white vh-100 p-3">
+      <div class="text-center mb-4" >
+        <img src="/assets/logo2.jpg" alt="Logo" class="img-fluid rounded-circle" />
+        <h4 class="mt-2">{{ userName }}</h4>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-3">
+          <a class="nav-link text-white" (click)="showSection('products')">
+            <i class="bi bi-box-seam"></i> Productos
+          </a>
+        </li>
+        <li class="nav-item mb-3">
+          <button 
+            class="btn btn-link nav-link logout-button text-white"
+            (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i> Salir
+          </button>
+        </li>
+        
+      </ul>
+    </div>
+
+    
+
+      <!-- Sección de productos -->
+      <div class="col-10" *ngIf="!showForm"> 
+      <div *ngIf="activeSection === 'products'">
+        <div class="btn-container">
+          
+        </div>
+        <h1>Lista de Productos </h1>
+        
+        <input
+          type="text"
+          [(ngModel)]="filterText"
+          class="form-control mb-3"
+          placeholder="🔍 Buscar productos"
+          (ngModelChange)="onFilterChange()" 
+        />
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Descripción</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Mostrar productos filtrados y paginados -->
+            <ng-container *ngFor="let product of filteredProducts(); let i = index">
+              <tr (click)="toggleProductDetails(product)">
+                <td>{{ product.cCodPrd }}</td>
+                <td>{{ product.cDesPrd }}</td>
+               
+              </tr>
+              <!-- Fila expandida con detalles del producto -->
+              <tr *ngIf="product.showDetails">
+                <td colspan="3">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img [src]="product.imageUrl" alt="Imagen del Producto" class="img-fluid" />
+                    </div>
+                    <div class="col-md-8">
+                      <p><strong>Descripción:</strong> {{ product.cDesPrd }}</p>
+                      <p><strong>Costo:</strong> {{ product.nCosPrd | currency }}</p>
+                      <p><strong>Inventario Actual:</strong> {{ product.nInvAPrd }}</p>
+                      <p><strong>Stock Mínimo:</strong> {{ product.nMinPrd }}</p>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            <!-- Fila vacía cuando no hay productos -->
+            <tr *ngIf="filteredProducts().length === 0">
+              <td colspan="3">No hay productos para mostrar.</td>
+            </tr>
+          </tbody>
+        </table>
+              <!-- Paginación -->
+          <div class="pagination">
+            <!-- Botón Anterior -->
+            <button
+              class="btn btn-outline-primary"
+              [disabled]="page === 1"
+              (click)="changePage(page - 1)"
+            >
+              Anterior
+            </button>
+
+            <!-- Páginas numeradas centradas -->
+            <ul class="pagination">
+              <li
+                *ngFor="let p of paginationRange()"
+                [class.active]="page === p"
+              >
+                <button
+                  class="btn btn-outline-secondary"
+                  (click)="changePage(p)"
+                >
+                  {{ p }}
+                </button>
+              </li>
+            </ul>
+
+            <!-- Botón Siguiente -->
+            <button
+              class="btn btn-outline-primary"
+              [disabled]="page === totalPages"
+              (click)="changePage(page + 1)"
+            >
+              Siguiente
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+     

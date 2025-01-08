@@ -1,0 +1,26 @@
+/* Imagen normal (en la lista) */
+.normal-image {
+  max-width: 150px;
+  cursor: pointer;
+}
+
+/* Imagen en el modal (ajustada ligeramente más pequeña) */
+.full-image {
+  max-width: 100%;
+  /* La imagen ocupará como máximo el 90% del ancho del modal */
+  max-height: 98vh;
+  /* Limitar la altura al 80% de la ventana */
+  margin: auto;
+  /* Centrar la imagen dentro del modal */
+  display: block;
+}
+
+/* Estilo opcional para el modal */
+.custom-dialog-container {
+  max-width: 90vw;
+  /* Limitar el ancho del modal */
+  max-height: 98vh;
+  /* Limitar la altura total del modal */
+  overflow: hidden;
+  /* Evitar que el contenido se desborde */
+}

@@ -1,0 +1,379 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-2 sidebar bg-dark text-white p-3">
+      <div class="text-center mb-2">
+        <img src="/assets/logo2.jpg" alt="Logo" class="img-fluid rounded-circle" />
+        <h4 class="mt-3">{{ userName }}</h4>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-3">
+          <a class="nav-link text-white" (click)="showSection('products')">
+            <i class="bi bi-box-seam"></i> Productos
+          </a>
+        </li>
+        <li class="nav-item mb-3">
+          <button class="btn btn-link nav-link logout-button text-white" (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i> Salir
+          </button>
+        </li>
+      </ul>
+    </div>
+    <!-- Contenido principal -->
+    <div class="col-10">
+      <div *ngIf="showForm">
+        <button class="btn btn-secondary mb-3 btn-volver" (click)="toggleForm()">⬅ Volver</button>
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <div class="form-container">
+              <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+                <!-- Titulo del formulario -->
+                <h1 class="form-title">{{ editingProduct ? 'Actualizar Producto' : 'Agregar Producto' }}</h1>
+                <!-- Contenido del formulario -->
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="cCodPrd">Código de Producto:</label>
+                    <input type="text" class="form-control" formControlName="cCodPrd"
+                      [ngClass]="{'touched': productForm.get('cCodPrd')?.touched && productForm.get('cCodPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('cCodPrd')?.touched && productForm.get('cCodPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="cDesPrd">Descripción:</label>
+                    <input type="text" class="form-control" formControlName="cDesPrd"
+                      [ngClass]="{'touched': productForm.get('cDesPrd')?.touched && productForm.get('cDesPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('cDesPrd')?.touched && productForm.get('cDesPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="nUniPrd">Unidad de Medida:</label>
+                    <select id="nUniPrd" class="form-control" formControlName="nUniPrd" aria-placeholder="" [ngClass]="{
+                        'touched': productForm.get('nUniPrd')?.touched &&
+                        productForm.get('nUniPrd')?.invalid
+                      }">
+                      <option value="" disabled selected>Seleccione una unidad de medida</option>
+                      <option *ngFor="let unit of units" [value]="unit.value">
+                        {{ unit.label }}
+                      </option>
+                    </select>
+                    <div *ngIf="
+                        productForm.get('nUniPrd')?.touched &&
+                        productForm.get('nUniPrd')?.invalid
+                      " class="error">
+                      Seleccione una unidad de medida.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="nMinPrd">Stock Mínimo:</label>
+                    <input type="number" class="form-control" formControlName="nMinPrd"
+                      [ngClass]="{'touched': productForm.get('nMinPrd')?.touched && productForm.get('nMinPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('nMinPrd')?.touched && productForm.get('nMinPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="nMaxPrd">Stock Máximo:</label>
+                    <input type="number" class="form-control" formControlName="nMaxPrd"
+                      [ngClass]="{'touched': productForm.get('nMaxPrd')?.touched && productForm.get('nMaxPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('nMaxPrd')?.touched && productForm.get('nMaxPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="cPosPrd">Posicion Almacen:</label>
+                    <input type="text" class="form-control" formControlName="cPosPrd"
+                      [ngClass]="{'touched': productForm.get('cPosPrd')?.touched && productForm.get('cPosPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('cPosPrd')?.touched && productForm.get('cPosPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="dAltPrd">Fecha de Alta:</label>
+                    <input type="date" class="form-control" formControlName="dAltPrd"
+                      [ngClass]="{'touched': productForm.get('dAltPrd')?.touched && productForm.get('dAltPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('dAltPrd')?.touched && productForm.get('dAltPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="dUltPrd">Fecha de Última Compra:</label>
+                    <input type="date" class="form-control" formControlName="dUltPrd"
+                      [ngClass]="{'touched': productForm.get('dUltPrd')?.touched && productForm.get('dUltPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('dUltPrd')?.touched && productForm.get('dUltPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="nInvAPrd">Inventario Actual:</label>
+                    <input type="number" class="form-control" formControlName="nInvAPrd"
+                      [ngClass]="{'touched': productForm.get('nInvAPrd')?.touched && productForm.get('nInvAPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('nInvAPrd')?.touched && productForm.get('nInvAPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="!editingProduct">
+                    <label for="nInvIPrd">Inventario Inicial:</label>
+                    <input type="number" class="form-control" formControlName="nInvIPrd"
+                      [ngClass]="{'touched': productForm.get('nInvIPrd')?.touched && productForm.get('nInvIPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('nInvIPrd')?.touched && productForm.get('nInvIPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label for="cPtePrd">Marca:</label>
+                    <input type="text" class="form-control" formControlName="cPtePrd"
+                      [ngClass]="{'touched': productForm.get('cPtePrd')?.touched && productForm.get('cPtePrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('cPtePrd')?.touched && productForm.get('cPtePrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="cPrv1Prd">Proveedor 1:</label>
+                    <select id="cPrv1Prd" class="form-control" formControlName="cPrv1Prd" [ngClass]="{
+                        'touched': productForm.get('cPrv1Prd')?.touched &&
+                        productForm.get('cPrv1Prd')?.invalid
+                      }">
+                      <option value="" disabled selected>Seleccione un Proveedor</option>
+                      <option *ngFor="let provider of providers" [value]="provider.value">
+                        {{ provider.label }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="cPrv2Prd">Proveedor 2:</label>
+                    <select id="cPrv2Prd" class="form-control" formControlName="cPrv2Prd" [ngClass]="{
+                        'touched': productForm.get('cPrv2Prd')?.touched &&
+                        productForm.get('cPrv2Prd')?.invalid
+                      }">
+                      <option value="" disabled selected>Seleccione un Proveedor</option>
+                      <option *ngFor="let provider of providers" [value]="provider.value">
+                        {{ provider.label }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="nLinPrd">Línea del Producto:</label>
+                    <select id="nLinPrd" class="form-control" formControlName="nLinPrd" [ngClass]="{
+                        'touched': productForm.get('nLinPrd')?.touched &&
+                        productForm.get('nLinPrd')?.invalid
+                      }">
+                      <option value="" disabled selected>Seleccione una línea</option>
+                      <option *ngFor="let line of lines" [value]="line.value">
+                        {{ line.label }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-6" *ngIf="!editingProduct">
+                    <label for="nCosPrd">Costo:</label>
+                    <input type="number" step="0.01" class="form-control" formControlName="nCosPrd"
+                      [ngClass]="{'touched': productForm.get('nCosPrd')?.touched && productForm.get('nCosPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('nCosPrd')?.touched && productForm.get('nCosPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="nPreVntPrd">Precio de Venta:</label>
+                    <input type="number" step="0.01" class="form-control" formControlName="nPrePrd"
+                      [ngClass]="{'touched': productForm.get('nPrePrd')?.touched && productForm.get('nPrePrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('nPrePrd')?.touched && productForm.get('nPrePrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="nUltPrd">Costo Ultima Compra:</label>
+                    <input type="number" class="form-control" formControlName="nUltPrd"
+                      [ngClass]="{'touched': productForm.get('nUltPrd')?.touched && productForm.get('nUltPrd')?.invalid}"
+                      required />
+                    <div *ngIf="productForm.get('nUltPrd')?.touched && productForm.get('nUltPrd')?.invalid"
+                      class="error">
+                      Este campo es obligatorio.
+                    </div>
+                  </div>
+                </div>
+                <!-- Botones -->
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-success mt-3" [disabled]="productForm.invalid">
+                    {{ editingProduct ? 'Actualizar' : 'Guardar' }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Sección de productos -->
+      <div class="col-12" *ngIf="!showForm">
+        <div *ngIf="activeSection === 'products'">
+          <div class="btn-container">
+            <button class="btn-add-product" (click)="toggleForm()">+ Agregar Producto</button>
+          </div>
+          <h1>Lista de Productos </h1>
+          <input type="text" [(ngModel)]="filterText" class="form-control mb-3" placeholder="🔍 Buscar productos"
+            (ngModelChange)="onFilterChange()" />
+          <!-- Filtro de Línea -->
+          <mat-form-field class="custom-form-field" [ngClass]="{ 'filter-active': selectedLine !== null }">
+            <mat-label>Filtrar por Línea</mat-label>
+            <mat-select [(ngModel)]="selectedLine" (ngModelChange)="onLineFilterChange()" class="custom-select">
+              <mat-option [value]="null">Todos</mat-option>
+              <mat-option *ngFor="let line of lines" [value]="line.value">
+                {{ line.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Filtro de Inventario -->
+          <mat-form-field class="custom-form-field" [ngClass]="{ 'filter-active': selectedInventory !== null }">
+            <mat-label>Filtrar por Inventario</mat-label>
+            <mat-select [(ngModel)]="selectedInventory" (ngModelChange)="onInventoryFilterChange()"
+              class="custom-select">
+              <mat-option [value]="null">Todos</mat-option>
+              <mat-option [value]="true">Con Inventario</mat-option>
+              <mat-option [value]="false">Sin Inventario</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Filtro de Estado -->
+          <mat-form-field class="custom-form-field" [ngClass]="{ 'filter-active': selectedStatus !== null }">
+            <mat-label>Filtrar por Estado</mat-label>
+            <mat-select [(ngModel)]="selectedStatus" (ngModelChange)="onStatusFilterChange()" class="custom-select">
+              <mat-option [value]="null">Todos</mat-option>
+              <mat-option [value]="true">Habilitados</mat-option>
+              <mat-option [value]="false">Deshabilitados</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Unidad de Medida</th>
+                <th>Inventario Actual</th>
+                <th>Marca</th>
+                <th>Posicion Almacen</th>
+                <th>Proveedor</th>
+                <th>Línea del Producto</th>
+                <th>Fecha de Alta</th>
+                <th class="actions-header">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Mostrar productos filtrados y paginados -->
+              <ng-container *ngFor="let product of filteredProducts(); let i = index">
+                <tr [class.highlighted]="product.showDetails" [class.desabilitado]="!product.nEdoPrd"
+                  (click)="toggleProductDetails(product)">
+                  <td class="codigo-column">{{ product.cCodPrd }}</td>
+                  <td>{{ product.cDesPrd }}</td>
+                  <td>{{ getUnits(product.nUniPrd) }}</td>
+                  <td>{{ product.nInvAPrd }}</td>
+                  <td>{{ product.cPtePrd }}</td>
+                  <td>{{ product.cPosPrd }}</td>
+                  <td>{{ getProveedor(product.cPrv2Prd) }}</td>
+                  <td>{{ getLineas(product.nLinPrd) }}</td>
+                  <td>{{ product.dAltPrd | date:'dd-MM-yyyy' }}</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-edit" (click)="editProduct(product); $event.stopPropagation()"
+                        [disabled]="!product.nEdoPrd">
+                        Editar
+                      </button>
+                      <button class="btn-enable" *ngIf="!product.nEdoPrd"
+                        (click)="habilitarProducto(product.cCodPrd); $event.stopPropagation()">
+                        Habilitar
+                      </button>
+                      <button class="btn-disable" *ngIf="product.nEdoPrd"
+                        (click)="deshabilitarProducto(product.cCodPrd); $event.stopPropagation()">
+                        Deshabilitar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <!-- Fila expandida con detalles del producto -->
+                <tr *ngIf="product.showDetails">
+                  <td colspan="10">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="d-flex flex-wrap">
+                          <!-- Imagen con evento de clic -->
+                          <div *ngFor="let imageUrl of product.imageUrls" class="me-3">
+                            <img [src]="imageUrl" class="img-fluid normal-image" (click)="openImageModal(imageUrl)"
+                              (error)="onImageError($event)" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <div class="action-buttons2">
+                          <button mat-button (click)="openValesModal(product)">Vales</button>
+                          <button mat-button (click)="openModalCompras(product)">Compras</button>
+                          <button mat-button (click)="openModalKardex(product)">Kardex</button>
+                        </div>
+                        <p><strong>Costo:</strong> {{ product.nCosPrd | currency }}</p>
+                        <p><strong>Stock Mínimo:</strong> {{ product.nMinPrd }}</p>
+                        <p><strong>Stock Maximo:</strong> {{ product.nMaxPrd }}</p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+              <!-- Fila vacía cuando no hay productos -->
+              <tr *ngIf="filteredProducts().length === 0">
+                <td colspan="3">No hay productos para mostrar.</td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- Paginación -->
+          <div class="pagination">
+            <!-- Botón para ir al inicio -->
+            <button class="btn btn-outline-secondary" [disabled]="page === 1" (click)="changePage(1)">
+              ⏪
+            </button>
+            <!-- Botón Anterior -->
+            <button class="btn btn-outline-primary" [disabled]="page === 1" (click)="changePage(page - 1)">
+              Anterior
+            </button>
+            <!-- Páginas numeradas centradas -->
+            <ul class="pagination">
+              <li *ngFor="let p of paginationRange()" [class.active]="page === p">
+                <button class="btn btn-outline-secondary" (click)="changePage(p)">
+                  {{ p }}
+                </button>
+              </li>
+            </ul>
+            <!-- Botón Siguiente -->
+            <button class="btn btn-outline-primary" [disabled]="page === totalPages" (click)="changePage(page + 1)">
+              Siguiente
+            </button>
+            <!-- Botón para ir al final con emoji de flecha -->
+            <button class="btn btn-outline-secondary" [disabled]="page === totalPages" (click)="changePage(totalPages)">
+              ⏩
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

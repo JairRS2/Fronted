@@ -1,0 +1,17 @@
+<dx-pivot-grid
+  [dataSource]="{
+    fields: [
+      { dataField: 'descripcion', area: 'row' },
+      { dataField: 'costo', area: 'data', summaryType: 'sum' },
+      { dataField: 'InventarioActual', area: 'data', summaryType: 'sum' },
+      { dataField: 'Lineas', area: 'column' }
+    ], 
+    store: dataSource
+  }"
+  [allowSortingBySummary]="true"
+  [allowFiltering]="true"
+  [allowExpandAll]="true"
+  [showBorders]="true">
+</dx-pivot-grid>
+
+<dx-button text="Exportar a Excel" (onClick)="exportToExcel()"></dx-button>

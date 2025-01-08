@@ -1,0 +1,28 @@
+<div class="login-container">
+  <!-- Sección Izquierda -->
+  <div class="left-section">
+    <!-- Puedes agregar contenido aquí si lo necesitas -->
+  </div>
+
+  <!-- Sección Derecha -->
+  <div class="right-section">
+    <h2>Inicio de Sesión</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="claveEmpleado">Usuario</label>
+        <input type="text" id="cClaveEmpleado" [(ngModel)]="credentials.cClaveEmpleado" name="cClaveEmpleado"
+          placeholder="Ingrese su Usuario" required />
+      </div>
+
+      <div class="form-group">
+        <label for="claveUsuario">Contraseña</label>
+        <input type="password" id="cClaveUsuario" [(ngModel)]="credentials.cClaveUsuario" name="cClaveUsuario"
+          placeholder="Ingrese su Contraseña" required />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">Iniciar Sesión</button>
+      </div>
+    </form>
+  </div>
+</div>
