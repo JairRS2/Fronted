@@ -105,7 +105,7 @@ onDocumentClick(event: MouseEvent) {
   const clickedElement = event.target as HTMLElement;
 
   // Verifica si el clic fue fuera de cualquier fila de producto
-  if (!clickedElement.closest('tr')) {
+  if (!clickedElement.closest('tr,button')) {
     // Cierra todos los detalles de los productos
     this.products.forEach(product => product.showDetails = false);
   }

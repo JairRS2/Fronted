@@ -64,7 +64,7 @@
 </div>
 
 <div mat-dialog-actions class="dialog-actions">
-  <button mat-button (click)="loadValesDetalles()" class="button filter-button">Filtrar</button>
-  <button mat-button (click)="close()" class="button close-button">Cerrar</button>
+  <button mat-button (click)="loadValesDetalles()" class="button filter-button $event.stopPropagation()">Filtrar</button>
+  <button mat-button (click)="close()" class="button close-button $event.stopPropagation()">Cerrar</button>
   <button mat-button (click)="exportToExcel()" class="button export-button">Exportar</button>
 </div>

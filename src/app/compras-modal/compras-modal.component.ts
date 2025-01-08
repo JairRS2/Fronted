@@ -46,6 +46,21 @@ export class ComprasModalComponent implements OnInit {
     this.fetchProducts();
 
   }
+
+  toggleProductDetails(product: any, event: MouseEvent) {
+    // Evitar que el clic en la fila del producto cierre el detalle
+    event.stopPropagation();
+  
+    // Cerrar los detalles de todos los productos
+    this.products.forEach(p => {
+      if (p !== product) {
+        p.showDetails = false;
+      }
+    });
+  
+    // Alterna la visibilidad solo del producto seleccionado
+    product.showDetails = !product.showDetails;
+  }
   //Metodo para obtener los productos
   fetchProducts(): void {
     this.apiService.getProducts().subscribe(
