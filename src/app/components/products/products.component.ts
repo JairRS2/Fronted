@@ -30,7 +30,7 @@ export class ProductsComponent implements OnInit {
   products: any[] = [];
   filterText: string = '';
   editingProduct: any = null;
-  selectedProduct: any = null;
+  selectedProduct: any = null;  
   page = 1;
   totalPages: number = 0;
   itemsPerPage: number = 17;
@@ -105,7 +105,7 @@ onDocumentClick(event: MouseEvent) {
   const clickedElement = event.target as HTMLElement;
 
   // Verifica si el clic fue fuera de cualquier fila de producto
-  if (!clickedElement.closest('tr,button')) {
+  if (!clickedElement.closest('tr,button,mat-label')) {
     // Cierra todos los detalles de los productos
     this.products.forEach(product => product.showDetails = false);
   }

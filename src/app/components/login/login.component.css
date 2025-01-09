@@ -97,3 +97,58 @@
 .form-actions a:hover {
   text-decoration: underline;
 }
+
+/* Responsividad para tabletas */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    margin: 20px;
+  }
+
+  .left-section {
+    flex-basis: 100%;
+    height: 200px;
+    background-size: cover;
+  }
+
+  .right-section {
+    padding: 20px;
+  }
+
+  .right-section h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Responsividad para móviles */
+@media (max-width: 480px) {
+  .right-section {
+    padding: 15px;
+  }
+
+  .right-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .form-group input {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .form-actions button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .left-section {
+    flex-basis: 100%;
+    height: 200px;
+    background-size: cover;
+  }
+}
