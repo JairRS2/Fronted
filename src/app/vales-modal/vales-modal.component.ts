@@ -41,12 +41,13 @@ export class ValesModalComponent implements OnInit {
     private datePipe: DatePipe
   ) {}
 
-
+//Metodo que inicializa todo
   ngOnInit(): void {
     this.verifyProductId();
     this.fetchProducts();
     
   }
+  //Metodo para evitar que se cierren los detalles del producto 
   toggleProductDetails(product: any, event: MouseEvent) {
     // Evitar que el clic en la fila del producto cierre el detalle
     event.stopPropagation();
@@ -100,7 +101,7 @@ export class ValesModalComponent implements OnInit {
     }
     this.loadValesDetalles();  // Ahora solo llamas al método sin argumentos
   }
-
+//Metodo para pintar los detalles por numero de vale
   applyValesNumberFilter(): void {
     const filterValue = this.filtervalesxNumber.trim().toLowerCase();
     if (filterValue) {
@@ -111,7 +112,7 @@ export class ValesModalComponent implements OnInit {
       this.filteredData = [...this.detalles]; // Restablecer los datos originales si no hay filtro
     }
   }
-
+//Metodo que carga los detalles del vale
   loadValesDetalles(): void {
     const productId = this.data?.productId; // Asegúrate de que productId esté disponible y válido
     if (!productId) {
@@ -147,7 +148,7 @@ export class ValesModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
-
+//Metodo para realizar la exporcion a excel
   exportToExcel(): void {
     // Mapeo de las columnas originales a nombres más legibles
     const columnMapping: { [key: string]: string } = {
@@ -195,7 +196,7 @@ export class ValesModalComponent implements OnInit {
     XLSX.writeFile(wb, excelFileName); // Exportar el archivo
   }
 
-
+//Metodo para covertir a string el estado del vale dependiendo su valor numerico 
   getEstadoVale(tipo: number): string {
     switch (tipo) {
       case 1:
@@ -219,7 +220,7 @@ export class ValesModalComponent implements OnInit {
     }
   }
 
-
+//Metodo para convertir a stringo el nombre de la empresa dependiendo su valor numerico
   getEmpresaVales(tipo: number): string {
     switch (tipo) {
       case 1:

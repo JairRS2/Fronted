@@ -122,7 +122,6 @@ export class KardexModalComponent implements OnInit {
           this.kardexDetails = data;
           this.filteredData = [...this.kardexDetails]; // Copiar datos iniciales
           if (data.length > 0) {
-            // Aquí no necesitas hacer más cosas porque el backend ya devolvió el nCveEmp con los detalles del vale
             this.loading.next(false); // Desactivar indicador de carga
           } else {
             console.log('No se encontraron detalles del kardex.');

@@ -19,8 +19,6 @@ import { ImageModalComponentComponent } from 'src/app/image-modal-component/imag
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  cClaveEmpleado: string = '';  // Clave del empleado (usuario)
-  cClaveUsuario: string = '';   // Clave del usuario (contraseña)
   userName: string = '';
   selectedStatus: boolean | null = null;
   selectedInventory: boolean | null = null;
@@ -37,9 +35,9 @@ export class ProductsComponent implements OnInit {
   showForm: boolean = false;
   modalVisible = false;
   modalType = '';
-  lines: any[] = []; // Ahora se cargan dinámicamente
+  lines: any[] = []; // se cargan dinámicamente
   selectedLine: string | null = null; // Línea seleccionada
-  units: any[] = []; // Ahora se cargan dinámicamente
+  units: any[] = []; // se cargan dinámicamente
   selectedUnits: string = '';
   providers: any[] = [];
   editableFields: string[] = [
@@ -71,13 +69,13 @@ export class ProductsComponent implements OnInit {
       nLinPrd: ['', Validators.required],
       nCosPrd: ['', Validators.required],
       nPrePrd: ['', Validators.required],
-      nInvIPrd: ['', Validators.required],
-      nInvAPrd: ['', Validators.required],
+      nInvIPrd:['', Validators.required],
+      nInvAPrd:['', Validators.required],
       nUltPrd: ['', Validators.required],
       cPosPrd: ['', Validators.required],
       cPtePrd: ['', Validators.required],
-      cPrv1Prd: ['', Validators.required],
-      cPrv2Prd: ['', Validators.required],
+      cPrv1Prd:['', Validators.required],
+      cPrv2Prd:['', Validators.required],
       nEdoPrd: [''],
     });
   }
@@ -162,7 +160,7 @@ onDocumentClick(event: MouseEvent) {
       }
     );
   }
-  //Metodo para filtrar las lineas
+  //Metodo para pintar los productos con el filtro de lineas aplicado
   onLineFilterChange() {
     this.page = 1;  // Resetear la página cuando cambia el filtro
     this.calculateTotalPages(); // Recalcular las páginas después de aplicar el filtro
@@ -181,7 +179,7 @@ onDocumentClick(event: MouseEvent) {
       }
     );
   }
-  //Metodo para filtrar las unidades
+  //Metodo para para pintar los productos con el filtro de unidades aplicado
   onUnitsFilterChange() {
     this.page = 1;  // Resetear la página cuando cambia el filtro
     this.calculateTotalPages(); // Recalcular las páginas después de aplicar el filtro
@@ -194,7 +192,7 @@ onDocumentClick(event: MouseEvent) {
 
   //Metodo para restablecer la vista
   resetView() {
-    this.activeSection = ''; // Restablece la vista (oculta la lista de productos)
+    this.activeSection = ''; 
   }
 
   //Metodo para filtrar los productos y recalcula el paginado
@@ -309,7 +307,7 @@ onDocumentClick(event: MouseEvent) {
       }
     }
   }
-
+//Metodo para mostrar los detalles del producto y tambien para cerrarlos
   toggleProductDetails(product: any, event: MouseEvent) {
     // Evitar que el clic en la fila del producto cierre el detalle
     event.stopPropagation();
@@ -428,7 +426,7 @@ onDocumentClick(event: MouseEvent) {
     });
   }
 
-
+//Metodo para habilitar las celdas del formulario  
   setFormFieldsEditable() {
     // Deshabilita todos los campos por defecto
     for (let control in this.productForm.controls) {
@@ -478,7 +476,7 @@ onDocumentClick(event: MouseEvent) {
 
     const dialogRef = this.dialog.open(ValesModalComponent, {
       width: '1600px',
-      data: { productId: productId, desproduct: desproduct },  // Solo pasamos el productId
+      data: { productId: productId, desproduct: desproduct },  // Solo pasamos el productId y la descripcion
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -500,7 +498,7 @@ onDocumentClick(event: MouseEvent) {
 
     const dialogRef = this.dialog.open(KardexModalComponent, {
       width: '1600px',
-      data: { productId: productId, desproduct: desproduct },  // Solo pasamos el productId
+      data: { productId: productId, desproduct: desproduct },  // Solo pasamos el productId y la descripcion
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -699,7 +697,7 @@ onDocumentClick(event: MouseEvent) {
   }
 
 
-
+//Metoodo para convertir a string los nombres de los proveedores dependiendo su valor numerico
   getProveedor(proveedorID: string): string {
     switch (proveedorID) {
       case '2102191000':

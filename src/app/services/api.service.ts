@@ -60,6 +60,7 @@ export class ApiService {
       })
     );
   }
+  
   // Método para obtener los detalles del kardex
   getKardexDetails(productId: string, startDate: string, endDate: string): Observable<any> {
     let params = new HttpParams().set('productId', productId);

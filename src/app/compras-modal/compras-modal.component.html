@@ -35,8 +35,8 @@
     </ng-container>
 
     <ng-container matColumnDef="cPrvOrd">
-      <th mat-header-cell *matHeaderCellDef> Proveedor Orden </th>
-      <td mat-cell *matCellDef="let element"> {{element.cPrvOrd}} </td>
+      <th mat-header-cell *matHeaderCellDef> Proveedor  </th>
+      <td mat-cell *matCellDef="let element"> {{getProveedor(element.cPrvOrd)}} </td>
     </ng-container>
     <ng-container matColumnDef="nCtdOrd">
       <th mat-header-cell *matHeaderCellDef> Cantidad Orden </th>
