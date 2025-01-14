@@ -19,27 +19,27 @@ import { ImageModalComponentComponent } from 'src/app/image-modal-component/imag
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
-  userName: string = '';
-  selectedStatus: boolean | null = null;
-  selectedInventory: boolean | null = null;
-  activeSection: string = '';
-  showProductForm: boolean = false;
-  productForm: FormGroup;
-  products: any[] = [];
-  filterText: string = '';
-  editingProduct: any = null;
-  selectedProduct: any = null;  
-  page = 1;
-  totalPages: number = 0;
-  itemsPerPage: number = 17;
-  showForm: boolean = false;
-  modalVisible = false;
-  modalType = '';
+  userName: string = '';//variable para almacenar el nombre del usuario
+  selectedStatus: boolean | null = null;//variable para el filtrado por estado del producto
+  selectedInventory: boolean | null = null;//varibale para el filtro por inventario
+  activeSection: string = '';//variable para cambiar  la actividad de la section
+  showProductForm: boolean = false;//variable para la visualizacion del formulario de producto
+  productForm: FormGroup;//variable para el formulario
+  products: any[] = [];//variable para almacenar los productos
+  filterText: string = '';//variable para filtrar productos
+  editingProduct: any = null;//variable para editar producto
+  selectedProduct: any = null;//variable para seleccionar un producto
+  page = 1;//predefinimos la pagina inicial
+  totalPages: number = 0;//variable para inicializar el total de paginas
+  itemsPerPage: number = 17;//Cantidad de producto a mostrar en la pagina
+  showForm: boolean = false;//variable para mostrar el formulario
+  modalVisible = false;//variable para que los modales sea visibles
+  modalType = '';//variable para el tipo de modal
   lines: any[] = []; // se cargan dinámicamente
   selectedLine: string | null = null; // Línea seleccionada
   units: any[] = []; // se cargan dinámicamente
-  selectedUnits: string = '';
-  providers: any[] = [];
+  selectedUnits: string = '';//varible para el filtrado por unidades de medida
+  providers: any[] = [];//variable para almacenar los proveedores
   editableFields: string[] = [
     'nLinPrd',
     'cPtePrd',
@@ -47,7 +47,7 @@ export class ProductsComponent implements OnInit {
     'nUniPrd',
     'cPosPrd',
     'cDesPrd'
-  ];
+  ];//variable para habilitar los inputs editables en el formulario(actualizar)
 
   constructor(
     private fb: FormBuilder,
@@ -179,6 +179,7 @@ onDocumentClick(event: MouseEvent) {
       }
     );
   }
+  
   //Metodo para para pintar los productos con el filtro de unidades aplicado
   onUnitsFilterChange() {
     this.page = 1;  // Resetear la página cuando cambia el filtro
@@ -527,6 +528,68 @@ onDocumentClick(event: MouseEvent) {
       console.log('El modal fue cerrado');
     });
   }
+   //Metodo para habilitar el producto con una ventana de confirmacion
+   habilitarProducto(cCodPrd: string): void {
+    const product = this.products.find((p) => p.cCodPrd === cCodPrd);
+
+    // Abre el diálogo de confirmación
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Confirmar Habilitación',
+        message: `¿Estás seguro de que deseas Habilitar el producto "${product?.cDesPrd || 'desconocido'}"?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.apiService.habilitarProducto(cCodPrd).subscribe(
+          () => {
+            if (product) {
+              product.nEdoPrd = true;
+              Swal.fire({
+                icon: 'success',
+                title: ` ${product.cDesPrd || 'desconocido'} Habilitado`,
+              });
+              this.fetchProducts();
+            }
+          },
+          (error) => console.error('Error al habilitar el producto:', error)
+        );
+      }
+    });
+  }
+
+  //Metodo para deshabilitar el producto con una ventana de confirmacion
+  deshabilitarProducto(cCodPrd: string): void {
+    const product = this.products.find((p) => p.cCodPrd === cCodPrd);
+
+    // Abre el diálogo de confirmación
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Confirmar Deshabilitación',
+        message: `¿Estás seguro de que deseas deshabilitar el producto "${product?.cDesPrd || 'desconocido'}"?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.apiService.deshabilitarProducto(cCodPrd).subscribe(
+          () => {
+            if (product) {
+              product.nEdoPrd = false;
+              Swal.fire({
+                icon: 'warning',
+                title: ` ${product.cDesPrd || 'desconocido'} Deshabilitado`,
+              });
+              this.fetchProducts();
+            }
+          },
+          (error) => console.error('Error al deshabilitar el producto:', error)
+        );
+      }
+    });
+  }
+
 
   //Metodo para obtener el nombre de la linea dependiendo del numero de la linea
   getLineas(tipo: number): string {
@@ -634,68 +697,7 @@ onDocumentClick(event: MouseEvent) {
     }
   }
 
-  //Metodo para habilitar el producto con una ventana de confirmacion
-  habilitarProducto(cCodPrd: string): void {
-    const product = this.products.find((p) => p.cCodPrd === cCodPrd);
-
-    // Abre el diálogo de confirmación
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'Confirmar Habilitación',
-        message: `¿Estás seguro de que deseas Habilitar el producto "${product?.cDesPrd || 'desconocido'}"?`,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.apiService.habilitarProducto(cCodPrd).subscribe(
-          () => {
-            if (product) {
-              product.nEdoPrd = true;
-              Swal.fire({
-                icon: 'success',
-                title: ` ${product.cDesPrd || 'desconocido'} Habilitado`,
-              });
-              this.fetchProducts();
-            }
-          },
-          (error) => console.error('Error al habilitar el producto:', error)
-        );
-      }
-    });
-  }
-
-  //Metodo para deshabilitar el producto con una ventana de confirmacion
-  deshabilitarProducto(cCodPrd: string): void {
-    const product = this.products.find((p) => p.cCodPrd === cCodPrd);
-
-    // Abre el diálogo de confirmación
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'Confirmar Deshabilitación',
-        message: `¿Estás seguro de que deseas deshabilitar el producto "${product?.cDesPrd || 'desconocido'}"?`,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.apiService.deshabilitarProducto(cCodPrd).subscribe(
-          () => {
-            if (product) {
-              product.nEdoPrd = false;
-              Swal.fire({
-                icon: 'warning',
-                title: ` ${product.cDesPrd || 'desconocido'} Deshabilitado`,
-              });
-              this.fetchProducts();
-            }
-          },
-          (error) => console.error('Error al deshabilitar el producto:', error)
-        );
-      }
-    });
-  }
-
+ 
 
 //Metoodo para convertir a string los nombres de los proveedores dependiendo su valor numerico
   getProveedor(proveedorID: string): string {
