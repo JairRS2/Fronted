@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/api.service'; // Correcto si están en el mismo archivo
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-login',
@@ -12,15 +11,19 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent {
   credentials = { cClaveEmpleado: '', cClaveUsuario: '' };
-  // Definición de las propiedades que se utilizan en el formulario
 
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
     private router: Router
-  ) { }
-
-  //Metodo para el boton de submit para la insercion de los datos
+  ) {}
+  ngOnInit() {
+    // Verificar si el usuario ya está autenticado
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/products']); // O la ruta correspondiente para usuarios logueados
+    }
+  }
+  
   onSubmit() {
     if (!this.credentials.cClaveEmpleado || !this.credentials.cClaveUsuario) {
       Swal.fire({
@@ -30,11 +33,11 @@ export class LoginComponent {
       });
       return;
     }
+
     this.apiService.loginUsuario(this.credentials).subscribe({
       next: (response) => {
-        // Guardar los detalles del usuario en el AuthService
         this.authService.setUserDetails(response);
-        // Mostrar mensaje dependiendo del rol
+
         if (response.role === 'Administrador') {
           Swal.fire({
             icon: 'success',
@@ -55,7 +58,7 @@ export class LoginComponent {
             title: 'Bienvenido',
             text: `${response.nombre}`,
           });
-          this.router.navigate(['/']);
+          this.router.navigate(['/products']);
         }
       },
       error: (err) => {
@@ -67,7 +70,4 @@ export class LoginComponent {
       },
     });
   }
-
-
-
 }

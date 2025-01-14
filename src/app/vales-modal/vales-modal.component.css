@@ -11,6 +11,7 @@
   align-items: center;
 }
 
+
 /* Estilo general para el contenedor de los botones */
 .dialog-actions {
   display: flex;
@@ -78,3 +79,28 @@
   background-color: lightgreen;
   /* Verde más fuerte al pasar el cursor */
 }
+/* Contenedor de la tabla con desplazamiento */
+.table-container {
+  max-height: 500px; /* Ajusta la altura según lo que necesites */
+  overflow-y: auto; /* Activa el desplazamiento vertical */
+  overflow-x: auto; /* Activa el desplazamiento horizontal si es necesario */
+  position: relative; /* Necesario para el sticky */
+  border: 1px solid #ddd; /* Bordes para distinguir el área */
+}
+
+/* Encabezado fijo */
+.mat-header-row, .mat-header-cell {
+  position: sticky !important; /* Activa el sticky */
+  top: 0;
+  z-index: 2; /* Mantiene el encabezado por encima de las filas */
+  background: white; /* Fondo blanco para evitar superposición visual */
+  border-bottom: 1px solid #e0e0e0; /* Línea de separación */
+}
+
+/* Ajusta la altura de las celdas del encabezado */
+.mat-header-cell {
+  height: 48px; /* Altura del encabezado */
+  font-weight: bold; /* Hace que el texto sea más visible */
+  text-align: center; /* Centra el texto */
+}
+

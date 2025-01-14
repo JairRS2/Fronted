@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -148,14 +148,29 @@ export class ApiService {
   providedIn: 'root',
 })
 export class AuthService {
+  private userDetailsSubject = new BehaviorSubject<any>(null);
+  public userDetails$ = this.userDetailsSubject.asObservable();
 
+  constructor() {}
+
+  // Guarda los detalles del usuario
   setUserDetails(userDetails: any) {
-    localStorage.setItem('userDetails', JSON.stringify(userDetails));
+    this.userDetailsSubject.next(userDetails);
   }
 
-
+  // Devuelve los detalles del usuario
   getUserDetails() {
-    const userDetails = JSON.parse(localStorage.getItem('userDetails') || '{}');
-    return userDetails;
+    return this.userDetailsSubject.value;
+  }
+
+  // Método para verificar si el usuario está autenticado
+  isLoggedIn(): boolean {
+    // Verifica si hay detalles del usuario almacenados
+    return this.getUserDetails() !== null;
+  }
+
+  // Método de logout
+  logout() {
+    this.userDetailsSubject.next(null);
   }
 }

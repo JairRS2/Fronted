@@ -460,7 +460,9 @@ onDocumentClick(event: MouseEvent) {
 
   //Metodo para cerrar la sesion activa
   logout() {
-    this.router.navigate(['/login']); // Redirige a la página de login
+    this.authService.logout();
+    // Redirige al login después de hacer logout
+    window.location.href = '/login';  // O usa this.router.navigate(['/login']) si tienes Router
   }
 
   //Metodo para abrir el modal de vales

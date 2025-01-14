@@ -43,9 +43,7 @@ export class ValesModalComponent implements OnInit {
 
 //Metodo que inicializa todo
   ngOnInit(): void {
-    this.verifyProductId();
-    this.fetchProducts();
-    
+    this.verifyProductId(); 
   }
   //Metodo para evitar que se cierren los detalles del producto 
   toggleProductDetails(product: any, event: MouseEvent) {
