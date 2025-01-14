@@ -441,7 +441,7 @@ onDocumentClick(event: MouseEvent) {
       }
     });
   }
-
+  
   //Metodo para editar un producto y mostrar el formulario
   editProduct(product: any) {
     this.editingProduct = product;

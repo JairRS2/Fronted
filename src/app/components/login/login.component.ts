@@ -58,7 +58,7 @@ export class LoginComponent {
             title: 'Bienvenido',
             text: `${response.nombre}`,
           });
-          this.router.navigate(['/products']);
+          this.router.navigate(['/home']);
         }
       },
       error: (err) => {

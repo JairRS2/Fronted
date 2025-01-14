@@ -61,18 +61,6 @@ export class ValesModalComponent implements OnInit {
     product.showDetails = !product.showDetails;
   }
 
-//Metodo para obtener los productos
-  fetchProducts(): void {
-    this.apiService.getProducts().subscribe(
-      (data) => {
-        this.products = data;
-        this.setProductDescription(); // Llamamos a esta función para asignar la descripción
-      },
-      (error) => {
-        console.error('Error al obtener los productos:', error);
-      }
-    );
-  }
   
   // Función para asignar la descripción del producto basado en productId
   setProductDescription(): void {
