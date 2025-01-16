@@ -441,7 +441,7 @@ onDocumentClick(event: MouseEvent) {
       }
     });
   }
-  
+
   //Metodo para editar un producto y mostrar el formulario
   editProduct(product: any) {
     this.editingProduct = product;
@@ -533,7 +533,15 @@ onDocumentClick(event: MouseEvent) {
    //Metodo para habilitar el producto con una ventana de confirmacion
    habilitarProducto(cCodPrd: string): void {
     const product = this.products.find((p) => p.cCodPrd === cCodPrd);
-
+// Verifica si el producto tiene inventario
+//if (product && product.nInvAPrd <= 0) {
+  //Swal.fire({
+   // icon: 'error',
+   // title: 'No se puede habilitar',
+   // text: `El producto "${product.cDesPrd}" no puede ser habilitado porque no cuenta con existencias.`,
+  //});
+ // return;
+//}
     // Abre el diálogo de confirmación
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {
@@ -564,7 +572,15 @@ onDocumentClick(event: MouseEvent) {
   //Metodo para deshabilitar el producto con una ventana de confirmacion
   deshabilitarProducto(cCodPrd: string): void {
     const product = this.products.find((p) => p.cCodPrd === cCodPrd);
-
+ // Verifica si el producto tiene inventario
+ if (product && product.nInvAPrd > 0) {
+  Swal.fire({
+    icon: 'error',
+    title: 'No se puede deshabilitar',
+    text: `El producto "${product.cDesPrd}" no puede ser deshabilitado porque tiene existencias.`,
+  });
+  return;
+}
     // Abre el diálogo de confirmación
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: {

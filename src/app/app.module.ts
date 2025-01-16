@@ -28,9 +28,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { CommonModule, DatePipe } from '@angular/common';
 import { ImageModalComponentComponent } from './image-modal-component/image-modal-component.component';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,8 +64,6 @@ import { ImageModalComponentComponent } from './image-modal-component/image-moda
     MatSnackBarModule,
     MatSelectModule,
     CommonModule
-
-    
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
