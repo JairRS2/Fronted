@@ -152,16 +152,16 @@ export class AuthService {
   public userDetails$ = this.userDetailsSubject.asObservable();
 
   constructor() {
-    // Al cargar el servicio, verificar si ya existe un usuario en el LocalStorage
-    const storedUserDetails = localStorage.getItem('userDetails');
+    // Al cargar el servicio, verificar si ya existe un usuario en el sessionStorage
+    const storedUserDetails = sessionStorage.getItem('userDetails');
     if (storedUserDetails) {
       this.userDetailsSubject.next(JSON.parse(storedUserDetails));
     }
   }
 
-  // Guarda los detalles del usuario en LocalStorage y en el BehaviorSubject
+  // Guarda los detalles del usuario en sessionStorage y en el BehaviorSubject
   setUserDetails(userDetails: any) {
-    localStorage.setItem('userDetails', JSON.stringify(userDetails)); // Guarda en LocalStorage
+    sessionStorage.setItem('userDetails', JSON.stringify(userDetails)); // Guarda en sessionStorage
     this.userDetailsSubject.next(userDetails); // Actualiza el BehaviorSubject
   }
 
@@ -177,9 +177,10 @@ export class AuthService {
 
   // Método de logout
   logout() {
-    localStorage.removeItem('userDetails'); // Elimina los detalles del usuario de LocalStorage
+    sessionStorage.removeItem('userDetails'); // Elimina los detalles del usuario de sessionStorage
     this.userDetailsSubject.next(null); // Elimina los detalles del usuario del BehaviorSubject
   }
 }
+
 
 

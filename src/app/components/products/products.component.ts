@@ -463,7 +463,7 @@ onDocumentClick(event: MouseEvent) {
     this.authService.logout(); // Llama al método logout del AuthService
     this.router.navigate(['/login']); // Redirige al login
   }
-
+  
   //Metodo para abrir el modal de vales
   openValesModal(product: any): void {
     // Extrae solo el cCodPrd (el identificador único)
