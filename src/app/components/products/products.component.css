@@ -690,8 +690,8 @@ button:disabled {
 
 
 .highlighted {
-  background-color: #8cc9ff !important; /* Fondo azul claro */
-  border-bottom: 4px solid #007bff; /* Subrayado azul claro */
+  background-color: #713ecf !important; /* Fondo azul claro */
+  border-bottom: 4px solid #713ecf; /* Subrayado azul claro */
 }
 
 

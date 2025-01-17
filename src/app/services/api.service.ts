@@ -151,11 +151,18 @@ export class AuthService {
   private userDetailsSubject = new BehaviorSubject<any>(null);
   public userDetails$ = this.userDetailsSubject.asObservable();
 
-  constructor() {}
+  constructor() {
+    // Al cargar el servicio, verificar si ya existe un usuario en el LocalStorage
+    const storedUserDetails = localStorage.getItem('userDetails');
+    if (storedUserDetails) {
+      this.userDetailsSubject.next(JSON.parse(storedUserDetails));
+    }
+  }
 
-  // Guarda los detalles del usuario
+  // Guarda los detalles del usuario en LocalStorage y en el BehaviorSubject
   setUserDetails(userDetails: any) {
-    this.userDetailsSubject.next(userDetails);
+    localStorage.setItem('userDetails', JSON.stringify(userDetails)); // Guarda en LocalStorage
+    this.userDetailsSubject.next(userDetails); // Actualiza el BehaviorSubject
   }
 
   // Devuelve los detalles del usuario
@@ -165,13 +172,14 @@ export class AuthService {
 
   // Método para verificar si el usuario está autenticado
   isLoggedIn(): boolean {
-    // Verifica si hay detalles del usuario almacenados
-    return this.getUserDetails() !== null;
+    return this.getUserDetails() !== null; // Verifica si los detalles del usuario existen
   }
 
   // Método de logout
   logout() {
-    this.userDetailsSubject.next(null);
+    localStorage.removeItem('userDetails'); // Elimina los detalles del usuario de LocalStorage
+    this.userDetailsSubject.next(null); // Elimina los detalles del usuario del BehaviorSubject
   }
 }
+
 
