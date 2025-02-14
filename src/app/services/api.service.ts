@@ -33,6 +33,18 @@ export class ApiService {
       })
     );
   }
+  
+  uploadImage(image: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+  
+    return this.http.post(`${this.baseUrl}/upload`, formData).pipe(
+      catchError((error) => {
+        console.error('Error al cargar la imagen:', error);
+        return throwError(error);
+      })
+    );
+  }
 
   //Obtener Detalles de Vales
   getValesDetalles(productId: string, startDate?: string, endDate?: string): Observable<any> {
@@ -60,7 +72,7 @@ export class ApiService {
       })
     );
   }
-  
+
   // Método para obtener los detalles del kardex
   getKardexDetails(productId: string, startDate: string, endDate: string): Observable<any> {
     let params = new HttpParams().set('productId', productId);

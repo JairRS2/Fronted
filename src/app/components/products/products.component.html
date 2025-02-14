@@ -216,6 +216,12 @@
                       Este campo es obligatorio.
                     </div>
                   </div>
+                  <!-- Input para cargar la imagen -->
+                  <div class="col-md-6">
+                    <label for="cCodPrd">Imagen del producto:</label>
+                    <input type="file" id="cCodPrd" (change)="onFileSelected($event)" class="form-control" />
+                  </div>
+
                 </div>
                 <!-- Botones -->
                 <div class="form-actions">
@@ -278,7 +284,7 @@
                 <th>Proveedor</th>
                 <th>Línea del Producto</th>
                 <th>Fecha de Alta</th>
-                <th class="actions-header">Acciones</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -312,7 +318,6 @@
                     </div>
                   </td>
                 </tr>
-
                 <!-- Fila expandida con detalles del producto -->
                 <tr *ngIf="product.showDetails">
                   <td colspan="10">
@@ -340,8 +345,6 @@
                   </td>
                 </tr>
               </ng-container>
-
-
               <!-- Fila vacía cuando no hay productos -->
               <tr *ngIf="filteredProducts().length === 0">
                 <td colspan="3">No hay productos para mostrar.</td>

@@ -19,6 +19,8 @@ import { ImageModalComponentComponent } from 'src/app/image-modal-component/imag
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements OnInit {
+  selectedImage: File | null = null;
+  message: string = '';
   userName: string = '';//variable para almacenar el nombre del usuario
   selectedStatus: boolean | null = null;//variable para el filtrado por estado del producto
   selectedInventory: boolean | null = null;//varibale para el filtro por inventario
@@ -323,13 +325,20 @@ onDocumentClick(event: MouseEvent) {
     // Alterna la visibilidad solo del producto seleccionado
     product.showDetails = !product.showDetails;
   }
-  
+
 
 
   //Metodo para hacer el submit 
   onSubmit() {
     if (this.productForm.valid) {
       const product = this.productForm.value;
+      const formData = new FormData();
+       // Agrega la imagen si se seleccionó
+    if (this.selectedImage) {
+      formData.append('image', this.selectedImage, this.selectedImage.name);
+    } else {
+      console.log('No se seleccionó ninguna imagen');
+    }
       if (this.editingProduct) {
         this.updateProduct(product);
       } else {
@@ -342,6 +351,35 @@ onDocumentClick(event: MouseEvent) {
       });
     }
   }
+// Método para manejar el cambio de archivo
+onFileSelected(event: any) {
+  const file = event.target.files[0]; // Obtener el archivo seleccionado
+  if (file) {
+    this.selectedImage = file; // Guardar la imagen seleccionada
+    console.log('Imagen seleccionada:', file.name);
+
+    // Llamar al método de servicio para cargar la imagen
+    this.uploadImage(file); // Llamar directamente al método para cargar la imagen
+  } else {
+    console.log('No se seleccionó ningún archivo.');
+  }
+}
+
+// Método para cargar la imagen a través del servicio
+uploadImage(image: File): void {
+  this.apiService.uploadImage(image).subscribe(
+    response => {
+      console.log('Imagen cargada exitosamente', response);
+      // Aquí puedes usar la URL de la imagen devuelta para mostrarla
+      const imageUrl = response.imageUrl;
+      console.log('URL de la imagen:', imageUrl);
+      // Aquí puedes hacer algo con la URL, como asignarla a un modelo o mostrarla
+    },
+    error => {
+      console.error('Error al cargar la imagen:', error);
+    }
+  );
+}
 
   //Metodo para la creacion de un nuevo producto , realiza la insercion en la base de datos
   createNewProduct(product: any) {
@@ -608,6 +646,8 @@ onDocumentClick(event: MouseEvent) {
   }
 
 
+
+
   //Metodo para obtener el nombre de la linea dependiendo del numero de la linea
   getLineas(tipo: number): string {
     switch (tipo) {
@@ -714,7 +754,7 @@ onDocumentClick(event: MouseEvent) {
     }
   }
 
- 
+
 
 //Metoodo para convertir a string los nombres de los proveedores dependiendo su valor numerico
   getProveedor(proveedorID: string): string {

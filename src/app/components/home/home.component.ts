@@ -30,13 +30,13 @@ constructor(private router:Router , private apiService:ApiService ,private fb: F
     nLinPrd: ['', Validators.required],
     nCosPrd: ['', Validators.required],
     nPrePrd: ['', Validators.required],
-    nInvIPrd: ['', Validators.required],
-    nInvAPrd: ['', Validators.required],
+    nInvIPrd:['', Validators.required],
+    nInvAPrd:['', Validators.required],
     nUltPrd: ['', Validators.required],
     cPosPrd: ['', Validators.required],
     cPtePrd: ['', Validators.required],
-    cPrv1Prd: ['', Validators.required],
-    cPrv2Prd: ['', Validators.required],
+    cPrv1Prd:['', Validators.required],
+    cPrv2Prd:['', Validators.required],
   });
 }
 
@@ -133,11 +133,10 @@ toggleProductDetails(product: any): void {
   product.showDetails = !product.showDetails; // Expande o colapsa detalles del producto
 }
 
-
 logout() {
-    // Aquí puedes añadir cualquier lógica adicional, como limpiar el almacenamiento local
-    // Por ejemplo, para borrar datos del usuario
-    this.router.navigate(['/login']); // Redirige a la página de login
-  }
+  this.authService.logout(); // Llama al método logout del AuthService
+  this.router.navigate(['/login']); // Redirige al login
+}
+
 
 }
